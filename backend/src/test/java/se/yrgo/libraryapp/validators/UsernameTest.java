@@ -18,8 +18,7 @@ public class UsernameTest {
         String result = user.getName();
 
         //Assert
-        assertThatCode(() -> new User(id, "Felix", "Felix"))
-                .doesNotThrowAnyException();
+        assertThat(result).isEqualTo("Felix");
     }
 
     @Test
