@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.*;
 public class UsernameTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"Felix", "FElix", "Felix.Andersson", "Felix_Andersson", "@FelixAndersson", "Felix123", "Feli", "Felix-Andersson", "Felix0"})
+    @ValueSource(strings = {"Felix", "FElix", "Felix.Andersson", "Felix_Andersson", "@FelixAndersson", "Felix123456789", "Feli", "Felix-Andersson", "Felix0"})
     void correctUsername(String name) {
 
         boolean result = Username.validate(name);
@@ -22,6 +22,7 @@ public class UsernameTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"Felix Andersson", "Fel", "Felix!", "Felix😊", "FelixÅndersson", "Fдlix"})
+    @EmptySource
     void incorrectUsername(String name) {
 
         boolean result = Username.validate(name);
