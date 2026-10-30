@@ -21,7 +21,7 @@ public class UsernameTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"Felix Andersson", "Fel", "Felix!", "Felix😊", "FelixÅndersson", "Fдlix"})
+    @ValueSource(strings = {"Felix Andersson", " Felix", "Felix ", "     ", "Fel", "Felix!", "Felix😊", "FelixÅndersson", "Fдlix", "Felix\t", "Felix\n", "FelixAnderssån"})
     @EmptySource
     void incorrectUsername(String name) {
 
