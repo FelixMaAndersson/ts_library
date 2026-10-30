@@ -1,12 +1,7 @@
 package se.yrgo.libraryapp.validators;
 
-import org.junit.jupiter.api.Test;
-import se.yrgo.libraryapp.entities.User;
-import se.yrgo.libraryapp.entities.UserId;
-
 import static org.assertj.core.api.Assertions.*;
 
-import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.*;
 import org.junit.jupiter.params.provider.*;
 
