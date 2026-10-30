@@ -4,11 +4,10 @@ import org.junit.jupiter.api.Test;
 import se.yrgo.libraryapp.entities.User;
 import se.yrgo.libraryapp.entities.UserId;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.*;
 
 public class UsernameTest {
+
     @Test
     void correctUsername() {
         //Arrange
@@ -19,7 +18,8 @@ public class UsernameTest {
         String result = user.getName();
 
         //Assert
-        assertThat(result).isEqualTo("Felix");
+        assertThatCode(() -> new User(id, "Felix", "Felix"))
+                .doesNotThrowAnyException();
     }
 
     @Test
@@ -32,6 +32,7 @@ public class UsernameTest {
         String result = user.getName();
 
         //Assert
-        assertThat(result).isNotEqualTo("name with space");
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> new User(id, "name with space", "namewithoutspace"));
     }
 }
