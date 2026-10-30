@@ -6,32 +6,25 @@ import se.yrgo.libraryapp.entities.UserId;
 
 import static org.assertj.core.api.Assertions.*;
 
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.*;
+import org.junit.jupiter.params.provider.*;
+
 public class UsernameTest {
 
-    @Test
-    void correctUsername() {
-        //Arrange
-        UserId id = new UserId(1);
-        User user = new User(id, "Felix", "Felix");
+    @ParameterizedTest
+    @ValueSource(strings = {"Felix", "FElix", "Felix.Andersson", "Felix_Andersson", "@FelixAndersson", "Felix123", "Feli", "Felix-Andersson", "Felix0"})
+    void correctUsername(String name) {
 
-        //Act
-        String result = user.getName();
-
-        //Assert
-        assertThat(result).isEqualTo("Felix");
+        boolean result = Username.validate(name);
+        assertThat(result).isTrue();
     }
 
-    @Test
-    void incorrectUsername() {
-        //Arrange
-        UserId id = new UserId(2);
-        User user = new User(id, "name with space", "namewithoutspace");
+    @ParameterizedTest
+    @ValueSource(strings = {"Felix Andersson", "Fel", "Felix!", "Felix😊", "FelixÅndersson", "Fдlix"})
+    void incorrectUsername(String name) {
 
-        //Act
-        String result = user.getName();
-
-        //Assert
-        assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> new User(id, "name with space", "namewithoutspace"));
+        boolean result = Username.validate(name);
+        assertThat(result).isFalse();
     }
 }
