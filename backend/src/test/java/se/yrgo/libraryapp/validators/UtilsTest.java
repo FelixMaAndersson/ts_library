@@ -24,7 +24,7 @@ public class UtilsTest {
 
         // Null handling is not specified in documentation
         // Even though the current implementaiton throws
-        // a NullPointerException since str.chars() is called
+        // a NullPointerException since str.codePoint() is called
         // WITHOUT A NULL CHECK!!!
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> Utils.onlyLettersAndWhitespace(null));
@@ -53,7 +53,7 @@ public class UtilsTest {
 
         // Null handling is not specified in documentation
         // Even though the current implementaiton throws
-        // a NullPointerException since str.chars() is called
+        // a NullPointerException since str.codePoint() is called
         // WITHOUT A NULL CHECK!!!
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> Utils.cleanAndUnLeet(null));
