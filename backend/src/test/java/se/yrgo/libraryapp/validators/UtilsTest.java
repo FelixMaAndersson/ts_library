@@ -30,7 +30,6 @@ public class UtilsTest {
                 .isThrownBy(() -> Utils.onlyLettersAndWhitespace(null));
     }
 
-
     /*
      * Tests that no alphabetical letters, nor white space, are deleted.
      * Everything else should be deleted, and uppercase letters are set to lowercase.

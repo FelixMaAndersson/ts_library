@@ -1,4 +1,4 @@
-input:, expected: (reused cases from other test since this should also handle those cases)
+input:, expected: (reused cases from UsernameTest since this should also handle those cases)
 FELIX,felix
 Felix2,felix
 Felix!,felix
@@ -10,6 +10,9 @@ Felix😊,felix
 ÅÄÖ,åäö
 " "," "
 "",""
+"𐐀","𐐨"
+"İ","i̇"
+"felix andersson","felix andersson"
 13456780,leasbtbo
 felix 13456780,felix leasbtbo
 f31ix,felix
@@ -22,4 +25,4 @@ felix29 1337,felix leet
 13!37,leet
 13 ! 37,le  et
 "2!😊",""
-"29","zb"
+"29","zp"

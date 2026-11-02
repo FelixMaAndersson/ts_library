@@ -1,4 +1,4 @@
-input:, expected: don't forget that EVERY FUCKING ALPHABET SHOUDL WORK
+input:, expected: (don't forget that EVERY ALPHABET SHOULD WORK)
 FELIX,felix
 FELix,felix
 Felix123,felix
@@ -10,6 +10,7 @@ Felix😊,felix
 ΑΒΓ123,αβγ
 ÅÄÖ,åäö
 " "," "
+"",""
 "𐐀","𐐨"
 "İ","i̇"
 "felix andersson","felix andersson"
