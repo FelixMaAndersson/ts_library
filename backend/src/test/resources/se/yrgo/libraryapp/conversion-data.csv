@@ -1,0 +1,25 @@
+input:, expected: (reused cases from other test since this should also handle those cases)
+FELIX,felix
+Felix2,felix
+Felix!,felix
+Felix Andersson,felix andersson
+F2 A2,f a
+Felix😊,felix
+Привет2,привет
+ΑΒΓ2,αβγ
+ÅÄÖ,åäö
+" "," "
+"",""
+13456780,leasbtbo
+felix 13456780,felix leasbtbo
+f31ix,felix
+F31IX,felix
+1337,leet
+" 1337 "," leet "
+felix 31337,felix eleet
+felix29 1337,felix leet
+4,a
+13!37,leet
+13 ! 37,le  et
+"2!😊",""
+"29","zb"
