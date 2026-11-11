@@ -49,6 +49,7 @@ public final class RealName {
      */
     public static boolean validate(String name) {
         String cleanName = Utils.cleanAndUnLeet(name);
+        //bad namne for variable, maybe I'll fix it later
         String fullName = Utils.cleanAndUnLeet(name.replaceAll("\\p{Punct}", " "));
 
         return ContainsBadWords(cleanName) && ContainsBadWords(fullName);
