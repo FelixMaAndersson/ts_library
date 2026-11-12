@@ -1,5 +1,6 @@
 package se.yrgo.libraryapp.validators;
 
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -17,9 +18,9 @@ class Utils {
      * @return a string with all non-letters removed (except whitespace)
      */
     static String onlyLettersAndWhitespace(String str) {
-        return str.chars().filter(cp -> Character.isLetter(cp) || Character.isWhitespace(cp))
+        return str.codePoints().filter(cp -> Character.isLetter(cp) || Character.isWhitespace(cp) || Character.isSpaceChar(cp))
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString().toLowerCase();
+                .toString().toLowerCase(Locale.ROOT);
     }
 
     /**
