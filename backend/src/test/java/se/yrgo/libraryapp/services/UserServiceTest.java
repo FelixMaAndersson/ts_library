@@ -126,7 +126,7 @@ public class UserServiceTest {
 
     @ParameterizedTest
     @NullSource
-    @ValueSource(strings = {"", "a", "ab", "    ", " a", "a "})
+    @ValueSource(strings = {"", "f", "fe", "fel", "    ", " f", "f ", " felix", "felix "})
     void invalidUsername(String username) {
         UserService userService = new UserService(userDao, encoder);
 
@@ -137,7 +137,7 @@ public class UserServiceTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"fel", " fel ", "feli", " feli ", "felix", " felix "})
+    @ValueSource(strings = {"feli", "felix"})
     void validUsername(String username) {
 
         when(userDao.isNameAvailable(username)).thenReturn(true);
