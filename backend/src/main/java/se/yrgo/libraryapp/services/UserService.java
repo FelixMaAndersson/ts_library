@@ -38,7 +38,7 @@ public class UserService {
         return userDao.register(name, realname, passwordHash);
     }
 
-    public boolean isNameAvaliable(String name) {
+    public boolean isNameAvailable(String name) {
         if (name == null || name.trim().length() < 3) {
             return false;
         }
