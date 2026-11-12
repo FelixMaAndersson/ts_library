@@ -6,6 +6,8 @@ import javax.inject.Inject;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import se.yrgo.libraryapp.dao.UserDao;
 import se.yrgo.libraryapp.entities.*;
+import se.yrgo.libraryapp.validators.RealName;
+import se.yrgo.libraryapp.validators.Username;
 
 public class UserService {
     private UserDao userDao;
@@ -33,6 +35,10 @@ public class UserService {
     }
 
     public boolean register(String name, String realname, String password) {
+        if (!Username.validate(name) || !RealName.validate(realname)) {
+            return false;
+        }
+
         String passwordHash = encoder.encode(password);
 
         return userDao.register(name, realname, passwordHash);
