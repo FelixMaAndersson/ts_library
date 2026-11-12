@@ -32,6 +32,9 @@ target/*
 .settings/*
 .vscode/*
 
+# intelliJ
+.idea/
+
 # Ignore Gradle project-specific cache directory
 .gradle
 
