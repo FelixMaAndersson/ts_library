@@ -5,11 +5,15 @@ import static org.mockito.Mockito.when;
 import java.sql.*;
 import java.util.Optional;
 import javax.sql.DataSource;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import se.yrgo.libraryapp.entities.*;
+import se.yrgo.libraryapp.validators.*;
+
 @MockitoSettings(strictness = Strictness.STRICT_STUBS)
 public class UserDaoTest {
     @Mock
@@ -56,6 +60,8 @@ public class UserDaoTest {
         assertThat(userDao.getLoginInfo(username)).isEmpty();
     }
 
+    // I think maybe you could assert that you get a realname and a username here
+    // to ensure the SQL i correctly written
     @Test
     void getExistingUser() throws SQLException {
         final String userId = "1";
@@ -88,5 +94,27 @@ public class UserDaoTest {
         UserDao userDao = new UserDao(ds);
 
         assertThat(userDao.get(id)).isEmpty();
+    }
+
+    // I don't understand why you shouldn't throw an exception when you
+    // can't connect to the database. This is something that I would have
+    // discussed with the team, 'how do we want this to be handled?',
+    // since it feels extremely unprofessional to rewrite the method because
+    // this isn't just a bug fix, it's the design.
+    // You could also say that just logging the error and letting no one else
+    // know that there is something wrong with the database is an absolutely
+    // wonderful design.
+    @Test
+    @Disabled
+    void GetUserDatabaseFail() throws SQLException {
+        final String userId = "1";
+
+        when(ds.getConnection())
+                .thenThrow(new SQLException());
+
+        UserDao user = new UserDao(ds);
+
+         assertThatExceptionOfType(SQLException.class)
+                .isThrownBy(() -> user.get(userId));
     }
 }
