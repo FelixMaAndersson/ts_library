@@ -35,6 +35,7 @@ public class UserDao {
             }
         } catch (SQLException ex) {
             logger.error("Unable to fetch user " + id, ex);
+            // throw an exception??
         }
 
         return Optional.empty();
@@ -53,22 +54,19 @@ public class UserDao {
             }
         } catch (SQLException ex) {
             logger.error("Unable to get user " + user, ex);
+            // throw an exception??
         }
 
         return Optional.empty();
     }
 
-    public boolean register(String name, String realname, String password) {
-        Argon2PasswordEncoder encoder = new Argon2PasswordEncoder();
-        String passwordHash = encoder.encode(password);
-
-        // handle names like Ian O'Toole
-        realname = realname.replace("'", "\\'");
+    public boolean register(String name, String realname, String passwordHash) {
 
         try (Connection conn = ds.getConnection()) {
             conn.setAutoCommit(false);
 
             return insertUserAndRole(name, realname, passwordHash, conn);
+
         } catch (SQLException ex) {
             logger.error("Unable to register user " + name, ex);
             return false;
@@ -76,9 +74,6 @@ public class UserDao {
     }
 
     public boolean isNameAvailable(String name) {
-        if (name == null || name.trim().length() < 3) {
-            return false;
-        }
 
         String query = "SELECT id FROM user WHERE user = ?";
         try (Connection conn = ds.getConnection();
@@ -93,13 +88,23 @@ public class UserDao {
         }
     }
 
-    private boolean insertUserAndRole(String name, String realname, String passwordHash,
+    private boolean insertUserAndRole(
+            String name,
+            String realname,
+            String passwordHash,
             Connection conn) throws SQLException {
-        String insertUser = "INSERT INTO user (user, realname, password_hash) VALUES ('" + name
-                + "', '" + realname + "', '" + passwordHash + "')";
 
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(insertUser, Statement.RETURN_GENERATED_KEYS);
+        String insertUser = "INSERT INTO user (user, realname, password_hash) VALUES (?, ?, ?)";
+
+        try (PreparedStatement stmt = conn.prepareStatement(
+                insertUser, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setString(1, name);
+            stmt.setString(2, realname);
+            stmt.setString(3, passwordHash);
+
+            stmt.executeUpdate();
+
             UserId userId = getGeneratedUserId(stmt);
 
             if (userId.getId() > 0 && addToUserRole(conn, userId)) {

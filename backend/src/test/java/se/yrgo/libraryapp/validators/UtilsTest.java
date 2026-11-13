@@ -36,7 +36,7 @@ public class UtilsTest {
      * Also that leet speak is translated to alphabetical letters.
      * */
     @ParameterizedTest
-    @CsvFileSource(resources = "/se/yrgo/libraryapp/conversion-data.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/se/yrgo/libraryapp/conversion-data.csv", numLinesToSkip = 2)
     void correctLeetConversion(String input, String expected) {
 
         // I'm absolutely not fluent in leet speak, but 2 and 9 seems to me

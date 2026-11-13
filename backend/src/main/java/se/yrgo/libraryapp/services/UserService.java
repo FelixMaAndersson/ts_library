@@ -2,16 +2,21 @@ package se.yrgo.libraryapp.services;
 
 import java.util.Optional;
 import javax.inject.Inject;
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import se.yrgo.libraryapp.dao.UserDao;
 import se.yrgo.libraryapp.entities.*;
+import se.yrgo.libraryapp.validators.RealName;
+import se.yrgo.libraryapp.validators.Username;
 
 public class UserService {
     private UserDao userDao;
+    private PasswordEncoder encoder;
 
     @Inject
-    UserService(UserDao userDao) {
+    UserService(UserDao userDao, PasswordEncoder encoder) {
         this.userDao = userDao;
+        this.encoder = encoder;
     }
 
     public Optional<UserId> validate(String username, String password) {
@@ -22,11 +27,27 @@ public class UserService {
 
         LoginInfo loginInfo = maybeLoginInfo.get();
 
-        Argon2PasswordEncoder encoder = new Argon2PasswordEncoder();
         if (!encoder.matches(password, loginInfo.getPasswordHash())) {
             return Optional.empty();
         }
 
         return Optional.of(loginInfo.getUserId());
-    }        
+    }
+
+    public boolean register(String name, String realname, String password) {
+        if (!Username.validate(name) || !RealName.validate(realname)) {
+            return false;
+        }
+
+        String passwordHash = encoder.encode(password);
+
+        return userDao.register(name, realname, passwordHash);
+    }
+
+    public boolean isNameAvailable(String name) {
+        if (!Username.validate(name)) {
+            return false;
+        }
+        return userDao.isNameAvailable(name);
+    }
 }
