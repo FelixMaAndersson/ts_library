@@ -16,6 +16,7 @@ public class ClassificationDao {
     private static Logger logger = LoggerFactory.getLogger(ClassificationDao.class);
     private DataSource ds;
 
+    // needs to be decided how we handle when no connection to the db
     @Inject
     ClassificationDao(DataSource ds) {
         this.ds = ds;
