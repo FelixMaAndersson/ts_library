@@ -8,15 +8,13 @@ import org.junit.jupiter.api.Test;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.time.Instant;
 import java.util.List;
 
 import se.yrgo.libraryapp.entities.DdsClassification;
 
-import static java.time.Period.ofDays;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Tag("foobar")
+@Tag("integration")
 @H2
 public class ClassificationDaoIntegrationTest {
 

@@ -33,10 +33,11 @@ public class LogoutController {
             // just ignore this
         }
 
+        // delete the cookie immediately when logout
         Cookie cookie = new Cookie("session", "");
         cookie.setSameSite(SameSite.LAX);
         cookie.setHttpOnly(true);
-        cookie.setMaxAge(-1);
+        cookie.setMaxAge(0);
         context.setResponseCookie(cookie);
     }
 }
