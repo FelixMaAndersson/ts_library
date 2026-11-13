@@ -49,4 +49,16 @@ public class LogoutControllerTest {
 
         verifyNoInteractions(sessionDao, context);
     }
+
+    @Test
+    void logoutWithInvalidSession() {
+        final String invalidSession = "hej";
+
+        LogoutController controller = new LogoutController(sessionDao);
+
+        controller.logout(context, invalidSession);
+
+        verifyNoInteractions(sessionDao);
+        verify(context).setResponseCookie(any(Cookie.class));
+    }
 }
