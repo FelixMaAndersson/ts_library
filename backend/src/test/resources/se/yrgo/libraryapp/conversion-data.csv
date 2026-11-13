@@ -1,4 +1,5 @@
 input:, expected: (reused cases from UsernameTest since this should also handle those cases)
+"29","zp"
 FELIX,felix
 Felix2,felix
 Felix!,felix
@@ -25,4 +26,3 @@ felix29 1337,felix leet
 13!37,leet
 13 ! 37,le  et
 "2!😊",""
-"29","zp"

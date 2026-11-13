@@ -56,13 +56,13 @@ public class SessionDaoIntegrationTest {
 
     @Test
     void validateExpiredSession() throws SQLException {
-        final UserId userId = UserId.of(1);
 
-        SessionDao sessionDao = new SessionDao(ds);
-        UUID sessionId = sessionDao.create(userId);
+        final UUID sessionId = UUID.randomUUID();
         int daysSinceCreated = 8;
 
         insertExpiredSession(sessionId, daysSinceCreated);
+
+        SessionDao sessionDao = new SessionDao(ds);
 
         assertThatThrownBy(() -> sessionDao.validate(sessionId))
                 .isInstanceOf(CredentialsException.class);
